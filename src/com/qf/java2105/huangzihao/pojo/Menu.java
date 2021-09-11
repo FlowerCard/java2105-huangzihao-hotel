@@ -11,7 +11,7 @@ public class Menu {
     /**
      * 菜单ID
      */
-    private String menuId;
+    private Long menuId;
     /**
      * 菜单名称
      */
@@ -24,17 +24,17 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String menuId, String menuName, String menuUrl) {
+    public Menu(Long menuId, String menuName, String menuUrl) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.menuUrl = menuUrl;
     }
 
-    public String getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(String menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 
