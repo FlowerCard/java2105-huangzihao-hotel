@@ -1,5 +1,8 @@
 package com.qf.java2105.huangzihao.pojo;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 /**
  * 订单实体类
  * @author HuaPai
@@ -11,36 +14,36 @@ public class Order {
     /**
      * 订单ID
      */
-    private String orderId;
+    private Long orderId;
     /**
      * 桌子ID
      */
-    private String tableId;
+    private Long tableId;
     /**
      * 用户ID
      */
-    private String userId;
+    private Long userId;
     /**
      * 菜总数量
      */
-    private String dishsNumber;
+    private Long dishsNumber;
     /**
      * 下单总金额
      */
-    private String totalAmount;
+    private BigDecimal totalAmount;
     /**
      * 下单时间
      */
-    private String orderTime;
+    private Date orderTime;
     /**
      * 订单状态
      */
-    private String orderStatus;
+    private Integer orderStatus;
 
     public Order() {
     }
 
-    public Order(String orderId, String tableId, String userId, String dishsNumber, String totalAmount, String orderTime, String orderStatus) {
+    public Order(Long orderId, Long tableId, Long userId, Long dishsNumber, BigDecimal totalAmount, Date orderTime, Integer orderStatus) {
         this.orderId = orderId;
         this.tableId = tableId;
         this.userId = userId;
@@ -50,59 +53,59 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public String getTableId() {
+    public Long getTableId() {
         return tableId;
     }
 
-    public void setTableId(String tableId) {
+    public void setTableId(Long tableId) {
         this.tableId = tableId;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getDishsNumber() {
+    public Long getDishsNumber() {
         return dishsNumber;
     }
 
-    public void setDishsNumber(String dishsNumber) {
+    public void setDishsNumber(Long dishsNumber) {
         this.dishsNumber = dishsNumber;
     }
 
-    public String getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public String getOrderTime() {
+    public Date getOrderTime() {
         return orderTime;
     }
 
-    public void setOrderTime(String orderTime) {
+    public void setOrderTime(Date orderTime) {
         this.orderTime = orderTime;
     }
 
-    public String getOrderStatus() {
+    public Integer getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
     }
 }
