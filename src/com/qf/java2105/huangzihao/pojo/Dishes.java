@@ -44,6 +44,12 @@ public class Dishes {
      */
     private Integer dishesStatus;
 
+    /**
+     * 关联菜系
+     * 多个菜品对应一个菜系
+     */
+    private Cuisine cuisine;
+
     public Dishes() {
     }
 
@@ -56,6 +62,14 @@ public class Dishes {
         this.dishesImg = dishesImg;
         this.dishesIntroduction = dishesIntroduction;
         this.dishesStatus = dishesStatus;
+    }
+
+    public Cuisine getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
     }
 
     public Long getDishesId() {
