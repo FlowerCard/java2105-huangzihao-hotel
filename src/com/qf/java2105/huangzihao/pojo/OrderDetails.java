@@ -1,5 +1,7 @@
 package com.qf.java2105.huangzihao.pojo;
 
+import java.math.BigDecimal;
+
 /**
  * 订单详情实体
  *
@@ -12,28 +14,28 @@ public class OrderDetails {
     /**
      * 订单详情ID
      */
-    private String detailsId;
+    private Long detailsId;
     /**
      * 菜品ID
      */
-    private String dishesId;
+    private Long dishesId;
     /**
      * 订单ID
      */
-    private String orderId;
+    private Long orderId;
     /**
      * 订单数量小记
      */
-    private String quantityNote;
+    private Long quantityNote;
     /**
      * 小记
      */
-    private String note;
+    private BigDecimal note;
 
     public OrderDetails() {
     }
 
-    public OrderDetails(String detailsId, String dishesId, String orderId, String quantityNote, String note) {
+    public OrderDetails(Long detailsId, Long dishesId, Long orderId, Long quantityNote, BigDecimal note) {
         this.detailsId = detailsId;
         this.dishesId = dishesId;
         this.orderId = orderId;
@@ -41,43 +43,43 @@ public class OrderDetails {
         this.note = note;
     }
 
-    public String getDetailsId() {
+    public Long getDetailsId() {
         return detailsId;
     }
 
-    public void setDetailsId(String detailsId) {
+    public void setDetailsId(Long detailsId) {
         this.detailsId = detailsId;
     }
 
-    public String getDishesId() {
+    public Long getDishesId() {
         return dishesId;
     }
 
-    public void setDishesId(String dishesId) {
+    public void setDishesId(Long dishesId) {
         this.dishesId = dishesId;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public String getQuantityNote() {
+    public Long getQuantityNote() {
         return quantityNote;
     }
 
-    public void setQuantityNote(String quantityNote) {
+    public void setQuantityNote(Long quantityNote) {
         this.quantityNote = quantityNote;
     }
 
-    public String getNote() {
+    public BigDecimal getNote() {
         return note;
     }
 
-    public void setNote(String note) {
+    public void setNote(BigDecimal note) {
         this.note = note;
     }
 }
