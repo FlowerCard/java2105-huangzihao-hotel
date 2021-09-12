@@ -3,6 +3,8 @@ package com.qf.java2105.huangzihao.dao;
 import com.qf.java2105.huangzihao.pojo.Dishes;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 菜品持久层接口
@@ -17,6 +19,6 @@ public interface IDishesDao {
      * @param dishName 菜品名称
      * @return 查询集合
      */
-    public Dishes queryByName(String dishName) throws SQLException;
+    public List<Map<String ,Object>> queryByName(String dishName) throws SQLException;
     
 }

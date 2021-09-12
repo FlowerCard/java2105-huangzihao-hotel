@@ -5,8 +5,11 @@ import com.qf.java2105.huangzihao.pojo.Dishes;
 import com.qf.java2105.huangzihao.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 菜品持久层实现
@@ -25,14 +28,23 @@ public class DishesDaoImpl implements IDishesDao {
      * @return 查询集合
      */
     @Override
-    public Dishes queryByName(String dishName) throws SQLException {
+    public List<Map<String, Object>> queryByName(String dishName) throws SQLException {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
-        String sql = "select\n" +
-                "t_dishes_id, t_cuisine_id, t_dishes_name, t_dishes_price, t_dishes_member_price, t_dishes_img, t_dishes_introduction, t_dishes_status\n" +
-                "from t_dishes where t_dishes_name like ?";
+        String sql = "select \n" +
+                "    d.t_dishes_id,\n" +
+                "    d.t_cuisine_id, \n" +
+                "    d.t_dishes_name, \n" +
+                "    d.t_dishes_price, \n" +
+                "    d.t_dishes_member_price, \n" +
+                "    d.t_dishes_img, \n" +
+                "    d.t_dishes_introduction, \n" +
+                "    c.t_cuisine_name\n" +
+                "from t_dishes d,t_cuisine c \n" +
+                "where d.t_cuisine_id = c.t_cuisine_id\n" +
+                "and d.t_dishes_name = ?";
         return queryRunner.query(
                 sql,
-                new BeanHandler<>(Dishes.class),
+                new MapListHandler(),
                 dishName
         );
     }
