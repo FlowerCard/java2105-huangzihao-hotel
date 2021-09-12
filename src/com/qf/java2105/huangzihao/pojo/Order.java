@@ -2,6 +2,7 @@ package com.qf.java2105.huangzihao.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 订单实体类
@@ -46,6 +47,12 @@ public class Order {
      */
     private Table table;
 
+    /**
+     * 关联订单详情
+     * 多个订单对多个订单详情
+     */
+    private List<OrderDetails> orderDetails;
+
     public Order() {
     }
 
@@ -57,6 +64,14 @@ public class Order {
         this.totalAmount = totalAmount;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     public Table getTable() {
