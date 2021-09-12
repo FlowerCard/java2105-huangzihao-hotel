@@ -53,6 +53,12 @@ public class Order {
      */
     private List<OrderDetails> orderDetails;
 
+    /**
+     * 关联用户实体
+     * 多个订单对应单个用户
+     */
+    private User user;
+
     public Order() {
     }
 
@@ -64,6 +70,14 @@ public class Order {
         this.totalAmount = totalAmount;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<OrderDetails> getOrderDetails() {
