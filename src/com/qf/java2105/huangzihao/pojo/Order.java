@@ -40,6 +40,12 @@ public class Order {
      */
     private Integer orderStatus;
 
+    /**
+     * 关联餐桌
+     * 多个菜单对应一个餐桌
+     */
+    private Table table;
+
     public Order() {
     }
 
@@ -51,6 +57,14 @@ public class Order {
         this.totalAmount = totalAmount;
         this.orderTime = orderTime;
         this.orderStatus = orderStatus;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public Long getOrderId() {
