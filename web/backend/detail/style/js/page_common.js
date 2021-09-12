@@ -95,8 +95,8 @@ function gotoPage( pageNum ){
 /**
  * 删除前的确认提示
  */
-function delConfirm(){
-	return window.confirm("您确定要删除一条记录码？");	
+function delConfirm(obj){
+	return window.confirm("您确定要删除'"+ obj +"'吗？");
 }
 
 

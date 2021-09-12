@@ -1,13 +1,14 @@
 package com.qf.java2105.huangzihao.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
-import com.qf.java2105.huangzihao.controller.MessageConstant;
+import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.dao.IDishesDao;
 import com.qf.java2105.huangzihao.dao.impl.DishesDaoImpl;
 import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
 import com.qf.java2105.huangzihao.pojo.Dishes;
 import com.qf.java2105.huangzihao.service.IDishesService;
+import com.qf.java2105.huangzihao.utils.JdbcUtil;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -39,15 +40,15 @@ public class DishesServiceImpl implements IDishesService {
             if (StringUtils.isEmpty(dishName)) {
                 dishName = "%%";
             } else {
-                dishName = "%" + dishName + "%";
+                dishName = "%" + dishName.trim() + "%";
             }
             List<Map<String, Object>> dishNameList = dishesDao.queryByName(dishName);
             
             //处理数据
             List<Dishes> dishesList = new ArrayList<>();
             for (Map<String, Object> map : dishNameList) {
-                Long dishesId = (Long) map.get("dishesId");
-                Long cuisineId = (Long) map.get("cuisineId");
+                Integer dishesId = (Integer) map.get("dishesId");
+                Integer cuisineId = (Integer) map.get("cuisineId");
                 String dishesName = (String) map.get("dishesName");
                 BigDecimal dishesPrice = (BigDecimal) map.get("dishesPrice");
                 BigDecimal dishesMemberPrice = (BigDecimal) map.get("dishesMemberPrice");
@@ -67,10 +68,88 @@ public class DishesServiceImpl implements IDishesService {
                 dishesList.add(dishes);
             }
             
-            return ResultVO.ok(MessageConstant.QUERY_DISH_SUCCESS,dishesList);
+            return ResultVO.ok(MessageConstant.QUERY_SUCCESS,dishesList);
         } catch (SQLException e) {
             e.printStackTrace();
-            return ResultVO.error(MessageConstant.QUERY_DISH_FAIL);
+            return ResultVO.error(MessageConstant.QUERY_FAIL);
+        }
+    }
+
+    /**
+     * 新增菜品
+     *
+     * @param dishes 菜品对象
+     * @return
+     */
+    @Override
+    public ResultVO<String> save(Dishes dishes) {
+
+        try {
+            JdbcUtil.begin();
+            dishesDao.save(dishes);
+            JdbcUtil.commit();
+            return ResultVO.ok(MessageConstant.INSERT_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JdbcUtil.rollback();
+            return ResultVO.error(MessageConstant.INSERT_FAIL);
+        }
+    }
+
+    /**
+     * 通过ID查询
+     *
+     * @param dishesId 菜品ID
+     * @return
+     */
+    @Override
+    public ResultVO<Dishes> queryById(Integer dishesId) {
+
+        try {
+            Dishes dishes = dishesDao.queryById(dishesId);
+            return ResultVO.ok(MessageConstant.QUERY_SUCCESS,dishes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVO.error(MessageConstant.QUERY_FAIL);
+        }
+    }
+
+    /**
+     * 更新菜品
+     * @param dishes 菜品实体
+     * @return
+     */
+    @Override
+    public ResultVO<String> updateById(Dishes dishes) {
+        try {
+            JdbcUtil.begin();
+            dishesDao.updateById(dishes);
+            JdbcUtil.commit();
+            return ResultVO.ok(MessageConstant.UPDATE_SUCCESS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JdbcUtil.rollback();
+            return ResultVO.error(MessageConstant.UPDATE_FAIL);
+        }
+    }
+
+    /**
+     * 通过id删除
+     *
+     * @param dishesId 菜品id
+     * @return
+     */
+    @Override
+    public ResultVO<String> deleteById(Integer dishesId) {
+
+        try {
+            JdbcUtil.begin();
+            dishesDao.deleteById(dishesId);
+            JdbcUtil.commit();
+            return ResultVO.ok(MessageConstant.DELETE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVO.error(MessageConstant.DELETE_FAIL);
         }
     }
 }

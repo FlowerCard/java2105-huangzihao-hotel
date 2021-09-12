@@ -1,4 +1,4 @@
-﻿
+﻿	
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -96,10 +96,10 @@ body {
 				</li>
                 <li class="level2 level2Style">
                 	<!--<a target="right" href="foodtype/food-type-list.html">菜系管理</a>-->
-                	<a target="right" href="/foodtype/search">菜系管理</a>
+                	<a target="right" href="/cuisine/search">菜系管理</a>
 				</li>
                 <li class="level2 level2Style">
-                	<a target="right" href="food/food-list.html">菜品管理</a>
+                	<a target="right" href="/dish/search">菜品管理</a>
 				</li>
                 <li class="level2 level2Style">
                 	<a target="right" href="order/order-list.html">餐厅订单</a>

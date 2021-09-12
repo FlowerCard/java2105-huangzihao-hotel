@@ -14,7 +14,7 @@ public class Cuisine {
     /**
      * 菜系ID
      */
-    private Long cuisineId;
+    private Integer cuisineId;
     /**
      * 菜系名称
      */
@@ -28,10 +28,15 @@ public class Cuisine {
      */
     private Date cuisineModifieTime;
 
+    /**
+     * 修改菜系用户ID
+     */
+    private Integer cuisineModifieUser;
+
     public Cuisine() {
     }
 
-    public Cuisine(Long cuisineId, String cuisineName, Date cuisineCreateTime, Date cuisineModifieTime, Long cuisineModifieUser) {
+    public Cuisine(Integer cuisineId, String cuisineName, Date cuisineCreateTime, Date cuisineModifieTime, Integer cuisineModifieUser) {
         this.cuisineId = cuisineId;
         this.cuisineName = cuisineName;
         this.cuisineCreateTime = cuisineCreateTime;
@@ -39,11 +44,11 @@ public class Cuisine {
         this.cuisineModifieUser = cuisineModifieUser;
     }
 
-    public Long getCuisineId() {
+    public Integer getCuisineId() {
         return cuisineId;
     }
 
-    public void setCuisineId(Long cuisineId) {
+    public void setCuisineId(Integer cuisineId) {
         this.cuisineId = cuisineId;
     }
 
@@ -71,18 +76,14 @@ public class Cuisine {
         this.cuisineModifieTime = cuisineModifieTime;
     }
 
-    public Long getCuisineModifieUser() {
+    public Integer getCuisineModifieUser() {
         return cuisineModifieUser;
     }
 
-    public void setCuisineModifieUser(Long cuisineModifieUser) {
+    public void setCuisineModifieUser(Integer cuisineModifieUser) {
         this.cuisineModifieUser = cuisineModifieUser;
     }
-
-    /**
-     * 修改菜系的人
-     */
-    private Long cuisineModifieUser;
+    
     
     
 

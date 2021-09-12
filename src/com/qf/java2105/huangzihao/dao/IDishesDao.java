@@ -20,5 +20,34 @@ public interface IDishesDao {
      * @return 查询集合
      */
     public List<Map<String ,Object>> queryByName(String dishName) throws SQLException;
+
+    /**
+     * 新增菜品
+     * @param dishes 菜品对象
+     * @throws SQLException
+     */
+    public void save(Dishes dishes) throws SQLException;
+
+    /**
+     * 通过ID查询
+     * @param dishesId 菜品id
+     * @return 菜品对象
+     * @throws SQLException
+     */
+    public Dishes queryById(Integer dishesId) throws SQLException;
+
+    /**
+     * 更新菜品
+     * @param dishes 菜品对象
+     * @throws SQLException
+     */
+    public void updateById(Dishes dishes) throws SQLException;
+
+    /**
+     * 根据id删除
+     * @param dishesId 菜品id
+     * @throws SQLException
+     */
+    public void deleteById(Integer dishesId) throws SQLException;
     
 }

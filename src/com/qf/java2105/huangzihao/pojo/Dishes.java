@@ -14,11 +14,11 @@ public class Dishes {
     /**
      * 菜品ID
      */
-    private Long dishesId;
+    private Integer dishesId;
     /**
      * 菜系ID
      */
-    private Long cuisineId;
+    private Integer cuisineId;
     /**
      * 菜品名称
      */
@@ -53,7 +53,7 @@ public class Dishes {
     public Dishes() {
     }
 
-    public Dishes(Long dishesId, Long cuisineId, String dishesName, BigDecimal dishesPrice, BigDecimal dishesMemberPrice, String dishesImg, String dishesIntroduction, Integer dishesStatus) {
+    public Dishes(Integer dishesId, Integer cuisineId, String dishesName, BigDecimal dishesPrice, BigDecimal dishesMemberPrice, String dishesImg, String dishesIntroduction, Integer dishesStatus) {
         this.dishesId = dishesId;
         this.cuisineId = cuisineId;
         this.dishesName = dishesName;
@@ -72,19 +72,19 @@ public class Dishes {
         this.cuisine = cuisine;
     }
 
-    public Long getDishesId() {
+    public Integer getDishesId() {
         return dishesId;
     }
 
-    public void setDishesId(Long dishesId) {
+    public void setDishesId(Integer dishesId) {
         this.dishesId = dishesId;
     }
 
-    public Long getCuisineId() {
+    public Integer getCuisineId() {
         return cuisineId;
     }
 
-    public void setCuisineId(Long cuisineId) {
+    public void setCuisineId(Integer cuisineId) {
         this.cuisineId = cuisineId;
     }
 
