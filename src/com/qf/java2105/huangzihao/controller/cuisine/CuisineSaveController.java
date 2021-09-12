@@ -1,6 +1,7 @@
 package com.qf.java2105.huangzihao.controller.cuisine;
 
 import com.alibaba.druid.util.StringUtils;
+import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
 import com.qf.java2105.huangzihao.service.ICuisineService;
@@ -27,7 +28,7 @@ public class CuisineSaveController extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ResultVO resultVO = null;
+        ResultVO resultVO = ResultVO.error(MessageConstant.DELETE_FAIL);
         try {
             String cuisineName = request.getParameter("name");
             if (!StringUtils.isEmpty(cuisineName)) {
