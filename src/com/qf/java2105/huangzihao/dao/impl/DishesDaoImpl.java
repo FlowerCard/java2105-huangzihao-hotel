@@ -38,10 +38,12 @@ public class DishesDaoImpl implements IDishesDao {
                 "    d.t_dishes_member_price dishesMemberPrice, \n" +
                 "    d.t_dishes_img dishesImg, \n" +
                 "    d.t_dishes_introduction dishesIntroduction, \n" +
+                "    d.t_dishes_status dishesStatus" +
                 "    c.t_cuisine_name cuisineName\n" +
                 "from t_dishes d,t_cuisine c \n" +
                 "where d.t_cuisine_id = c.t_cuisine_id\n" +
-                "and d.t_dishes_name = ?";
+                "and d.t_dishes_name = ?" +
+                "and d.t_dishes_status != 3";
         return queryRunner.query(
                 sql,
                 new MapListHandler(),
