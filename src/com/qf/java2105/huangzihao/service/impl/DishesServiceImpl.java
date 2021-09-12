@@ -1,6 +1,7 @@
 package com.qf.java2105.huangzihao.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
+import com.qf.java2105.huangzihao.controller.MessageConstant;
 import com.qf.java2105.huangzihao.dao.IDishesDao;
 import com.qf.java2105.huangzihao.dao.impl.DishesDaoImpl;
 import com.qf.java2105.huangzihao.entity.ResultVO;
@@ -66,10 +67,10 @@ public class DishesServiceImpl implements IDishesService {
                 dishesList.add(dishes);
             }
             
-            return ResultVO.ok("查询成功",dishesList);
+            return ResultVO.ok(MessageConstant.QUERY_DISH_SUCCESS,dishesList);
         } catch (SQLException e) {
             e.printStackTrace();
-            return ResultVO.error("查询失败");
+            return ResultVO.error(MessageConstant.QUERY_DISH_FAIL);
         }
     }
 }
