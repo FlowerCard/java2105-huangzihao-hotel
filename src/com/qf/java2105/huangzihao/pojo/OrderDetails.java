@@ -1,6 +1,7 @@
 package com.qf.java2105.huangzihao.pojo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * 订单详情实体
@@ -32,6 +33,18 @@ public class OrderDetails {
      */
     private BigDecimal note;
 
+    /**
+     * 关联菜品实体
+     * 多个订单详情对应单个菜品
+     */
+    private Dishes dishes;
+
+    /**
+     * 关联订单实体
+     * 多个订单详情对应多个订单
+     */
+    private List<Order> orderList;
+
     public OrderDetails() {
     }
 
@@ -41,6 +54,22 @@ public class OrderDetails {
         this.orderId = orderId;
         this.quantityNote = quantityNote;
         this.note = note;
+    }
+
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(List<Order> orderList) {
+        this.orderList = orderList;
+    }
+
+    public Dishes getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(Dishes dishes) {
+        this.dishes = dishes;
     }
 
     public Long getDetailsId() {
