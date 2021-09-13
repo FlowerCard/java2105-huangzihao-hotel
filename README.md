@@ -1,4 +1,4 @@
-# java2105-huangzihao-hotel 项目记录
+java2105-huangzihao-hotel 项目记录
 
 ## 2021-09-12
 
@@ -39,3 +39,20 @@ request.getRequestDispatcher(request.getContextPath() + "/backend/detail/foodtyp
 
 
 剩下的就是一些细节上的问题。
+
+
+
+## 2021-09-13
+
+- Tomcat忽略war包的项目名
+
+```xml
+<Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+    
+     <Context docBase="项目路径/项目名" path="" reloadable="false"/>
+    
+</Host>
+
+```
+
+> ​	在Tomcat安装目录下的conf目录下server.xml文件中，找到<Host></Host>标签，在其中加上上面代码块中中间的代码
