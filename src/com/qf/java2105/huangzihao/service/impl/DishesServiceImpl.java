@@ -5,6 +5,7 @@ import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.dao.IDishesDao;
 import com.qf.java2105.huangzihao.dao.impl.DishesDaoImpl;
 import com.qf.java2105.huangzihao.entity.ResultVO;
+import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
 import com.qf.java2105.huangzihao.pojo.Dishes;
 import com.qf.java2105.huangzihao.service.IDishesService;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 public class DishesServiceImpl implements IDishesService {
     
-    private IDishesDao dishesDao = new DishesDaoImpl();
+    private IDishesDao dishesDao = (IDishesDao) BeanFacotry.getBean("dishesDao");
     
     /**
      * 通过名字查询

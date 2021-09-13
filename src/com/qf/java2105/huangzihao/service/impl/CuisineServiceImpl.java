@@ -5,6 +5,7 @@ import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.dao.ICuisineDao;
 import com.qf.java2105.huangzihao.dao.impl.CuisineDaoImpl;
 import com.qf.java2105.huangzihao.entity.ResultVO;
+import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
 import com.qf.java2105.huangzihao.service.ICuisineService;
 import com.qf.java2105.huangzihao.utils.JdbcUtil;
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class CuisineServiceImpl implements ICuisineService {
     
-    private ICuisineDao cuisineDao = new CuisineDaoImpl();
+    private ICuisineDao cuisineDao = (ICuisineDao) BeanFacotry.getBean("cuisineDao");
     
     /**
      * 通过菜系名称查询
