@@ -28,8 +28,11 @@ public class BeanFacotry {
             PROPERTIES.load(BeanFacotry.class.getClassLoader().getResourceAsStream("bean.properties"));
             Set<String> propertyNames = PROPERTIES.stringPropertyNames();
             for (String propertyName : propertyNames) {
-                if (!StringUtils.isEmpty(propertyName)) {
-                    Class<?> clazz = Class.forName(propertyName);
+                //获取Value
+                String property = PROPERTIES.getProperty(propertyName);
+                if (!StringUtils.isEmpty(property)) {
+                    //反射创建实例
+                    Class<?> clazz = Class.forName(property);
                     Object newInstance = clazz.newInstance();
                     bean.put(propertyName,newInstance);
                 }

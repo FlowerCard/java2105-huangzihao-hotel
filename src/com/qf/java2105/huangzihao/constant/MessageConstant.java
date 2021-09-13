@@ -23,4 +23,8 @@ public interface MessageConstant {
     
     String DELETE_FAIL = "删除失败";
     
+    String SAVE_SUCCESS  ="保存成功";
+    
+    String SAVE_FAIL = "保存失败";
+    
 }

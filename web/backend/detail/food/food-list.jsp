@@ -22,7 +22,7 @@
 
 	<!-- 过滤条件 -->
 	<div id="QueryArea">
-		<form action="/dish/search" method="get">
+		<form action="/dish?method=search" method="get">
 			<input type="hidden" name="method" value="search">
 			<input type="text" name="keyword" title="请输入菜品名称" value="${keyword}">
 			<input type="submit" value="搜索">
@@ -52,8 +52,8 @@
 					<td>${dish.dishesPrice}&nbsp;</td>
 					<td>${dish.dishesMemberPrice}&nbsp;</td>
 					<td>
-						<a href="/dish/updateui?dishId=${dish.dishesId}" class="FunctionButton">更新</a>
-						<a href="/dish/delete?method=post&dishesId=${dish.dishesId}" onClick="return delConfirm('${dish.dishesName}');"class="FunctionButton">删除</a>				
+						<a href="/dish?method=updateui&dishId=${dish.dishesId}" class="FunctionButton">更新</a>
+						<a href="/dish?method=delete&dishesId=${dish.dishesId}" onClick="return delConfirm('${dish.dishesName}');"class="FunctionButton">删除</a>				
 					</td>
 				</tr>
 			</c:forEach>
@@ -63,7 +63,7 @@
 	
    <!-- 其他功能超链接 -->
 	<div id="TableTail" align="center">
-		<div class="FunctionButton"><a href="/dish/saveui">添加</a></div>
+		<div class="FunctionButton"><a href="/dish?method=saveui">添加</a></div>
     </div> 
 </div>
 </body>

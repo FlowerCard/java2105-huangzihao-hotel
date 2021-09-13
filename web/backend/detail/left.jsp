@@ -96,10 +96,10 @@ body {
 				</li>
                 <li class="level2 level2Style">
                 	<!--<a target="right" href="foodtype/food-type-list.html">菜系管理</a>-->
-                	<a target="right" href="/cuisine/search">菜系管理</a>
+                	<a target="right" href="/cuisine?method=search">菜系管理</a>
 				</li>
                 <li class="level2 level2Style">
-                	<a target="right" href="/dish/search">菜品管理</a>
+                	<a target="right" href="/dish?method=search">菜品管理</a>
 				</li>
                 <li class="level2 level2Style">
                 	<a target="right" href="order/order-list.html">餐厅订单</a>

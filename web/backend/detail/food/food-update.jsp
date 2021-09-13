@@ -28,7 +28,7 @@
 <!-- 主内容区域（数据列表或表单显示） -->
 <div id="MainArea">
     <!-- 表单内容 -->
-    <form action="/dish/update" method="post" enctype="multipart/form-data">
+    <form action="/dish?method=update" method="post" enctype="multipart/form-data">
         <!-- 本段标题（分段标题） -->
         <div class="ItemBlock_Title">
             <img width="4" height="7" border="0" src="${backend_detail_path}/style/images/item_point.gif"> 菜品信息&nbsp;

@@ -3,10 +3,9 @@ package com.qf.java2105.huangzihao.factory;
 import java.util.*;
 
 /**
- * @author ghy
- * @version 1.0
- * @date 2021-09-13
- * @userd 使得Properties有序
+ * @author HuaPai
+ * @email HuaPai@odcn.live
+ * Created on 2021/9/13.
  */
 public class OrderedProperties extends Properties {
 
