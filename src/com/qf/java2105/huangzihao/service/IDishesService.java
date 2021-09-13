@@ -52,4 +52,11 @@ public interface IDishesService {
      */
     public ResultVO<String> deleteById(Integer dishesId);
 
+    /**
+     * 判断菜品名字是否存在
+     * @param dishesName 菜品名字
+     * @return
+     */
+    public ResultVO existsDishesName(String dishesName);
+
 }

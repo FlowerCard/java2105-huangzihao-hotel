@@ -47,6 +47,13 @@ public interface ICuisineService {
      * @return
      */
     public ResultVO<String> save(Cuisine cuisine);
+
+    /**
+     * 判断菜系名字是否存在
+     * @param cuisineName 菜系名字
+     * @return
+     */
+    public ResultVO existsCuisineName(String cuisineName);
     
     
 }

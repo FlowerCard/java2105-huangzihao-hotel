@@ -1,5 +1,7 @@
 package com.qf.java2105.huangzihao.controller.dish;
 
+import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSON;
 import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.constant.ResponseMessageConstant;
 import com.qf.java2105.huangzihao.controller.BaseController;
@@ -48,6 +50,20 @@ public class DishesController extends BaseController {
         request.setAttribute("keyword",dishName == null ? "" : dishName.trim());
         request.setAttribute("dishes",listResultVO.getData());
         return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/backend/detail/food/food-list.jsp";
+    }
+
+    /**
+     * 判断菜品名词是否存在
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String exitisName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dishesName = request.getParameter("dishesName");
+        ResultVO resultVO = dishesService.existsDishesName(dishesName);
+        return JSON.toJSONString(resultVO);
     }
 
     /**
@@ -151,6 +167,22 @@ public class DishesController extends BaseController {
             e.printStackTrace();
         }
         //失败
+        return "<script>alert(" + resultVO.getMessage() + ");</script>";
+    }
+    
+    public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResultVO resultVO = ResultVO.error(MessageConstant.DELETE_FAIL);
+        try {
+            String dishesId = request.getParameter("dishesId");
+            if (!StringUtils.isEmpty(dishesId)) {
+                resultVO = dishesService.deleteById(Integer.valueOf(dishesId));
+            }
+            if (resultVO.getSuccess()) {
+                return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/dish?method=search";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "<script>alert(" + resultVO.getMessage() + ");</script>";
     }
     

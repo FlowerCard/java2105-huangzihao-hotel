@@ -6,6 +6,7 @@ import com.qf.java2105.huangzihao.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -120,5 +121,46 @@ public class DishesDaoImpl implements IDishesDao {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
         String sql = "update t_dishes set t_dishes_status = 3 where t_dishes_id = ?";
         queryRunner.update(sql,dishesId);
+    }
+
+    /**
+     * 查看菜品名字是否存在
+     *
+     * @param dishesName 菜品名称
+     * @return
+     */
+    @Override
+    public Integer existsDishesName(String dishesName) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "select t_dishes_id from t_dishes where t_dishes_status !=3 and t_dishes_name = ? limit 1";
+        return queryRunner.query(sql,new ScalarHandler<>(),dishesName);
+    }
+
+    /**
+     * 更新菜品是否被删除
+     * 配合菜品名称是否存在使用
+     * 如果存在，但是被打上了删除状态，就把状态复原到可用
+     *
+     * @param dishesId 菜品ID
+     */
+    @Override
+    public void updateDishesStatus(Integer dishesId) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "update t_dishes set t_dishes_status = 1 where t_dishes_id = ?";
+        queryRunner.update(sql,dishesId);
+    }
+
+    /**
+     * 查询被打上删除标记的菜品
+     *
+     * @param cuisineName 菜品名称
+     * @return
+     * @throws SQLException
+     */
+    @Override
+    public Integer queryDeleteStatus(String cuisineName) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "select t_dishes_id from t_dishes where t_dishes_name = ? and t_dishes_status = 3";
+        return queryRunner.query(sql,new ScalarHandler<>(),cuisineName);
     }
 }

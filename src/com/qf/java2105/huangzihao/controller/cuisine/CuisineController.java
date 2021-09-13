@@ -1,6 +1,7 @@
 package com.qf.java2105.huangzihao.controller.cuisine;
 
 import com.alibaba.druid.util.StringUtils;
+import com.alibaba.fastjson.JSON;
 import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.constant.ResponseMessageConstant;
 import com.qf.java2105.huangzihao.controller.BaseController;
@@ -37,15 +38,29 @@ public class CuisineController extends BaseController {
      * @throws ServletException
      * @throws IOException
      */
-    public String search (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cuisineName = request.getParameter("keyword");
         ResultVO resultVO = cuisineService.queryByName(cuisineName);
         request.setAttribute("keyword",cuisineName == null ? "" : cuisineName.trim());
         request.setAttribute("cuisines",resultVO.getData());
         return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/backend/detail/foodtype/foodtype-list.jsp";
     }
+
+    /**
+     * 判断菜系名称是否存在
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String exitisName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String cuisineName = request.getParameter("cuisineName");
+        ResultVO resultVO = cuisineService.existsCuisineName(cuisineName);
+        return JSON.toJSONString(resultVO);
+    }
     
-    public String save (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ResultVO resultVO = ResultVO.error(MessageConstant.DELETE_FAIL);
         try {
             String cuisineName = request.getParameter("name");
@@ -72,7 +87,7 @@ public class CuisineController extends BaseController {
      * @throws ServletException
      * @throws IOException
      */
-    public String updateui (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String updateui(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String typeId = request.getParameter("typeId");
         //判断传过的ID是否为空
         if (!StringUtils.isEmpty(typeId)) {
@@ -90,7 +105,7 @@ public class CuisineController extends BaseController {
      * @throws ServletException
      * @throws IOException
      */
-    public String update (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cuisineName = request.getParameter("name");
         String cuisineId = request.getParameter("cid");
         //用户ID
@@ -117,7 +132,7 @@ public class CuisineController extends BaseController {
      * @throws ServletException
      * @throws IOException
      */
-    public String delete (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ResultVO resultVO = ResultVO.error(MessageConstant.DELETE_FAIL);
         try {
             String typeId = request.getParameter("typeId");

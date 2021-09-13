@@ -27,4 +27,8 @@ public interface MessageConstant {
     
     String SAVE_FAIL = "保存失败";
     
+    String EXITIS_NAME = "名字存在，不可用";
+    
+    String UNEXITIS_NAME = "名字不存在，可用";
+    
 }

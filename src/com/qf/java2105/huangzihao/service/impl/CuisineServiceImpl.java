@@ -3,7 +3,6 @@ package com.qf.java2105.huangzihao.service.impl;
 import com.alibaba.druid.util.StringUtils;
 import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.dao.ICuisineDao;
-import com.qf.java2105.huangzihao.dao.impl.CuisineDaoImpl;
 import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
@@ -118,12 +117,41 @@ public class CuisineServiceImpl implements ICuisineService {
     public ResultVO<String> save(Cuisine cuisine) {
         try {
             JdbcUtil.begin();
-            cuisineDao.save(cuisine);
+            Integer deleteStatus = cuisineDao.queryDeleteStatus(cuisine.getCuisineName());
+            if (null != deleteStatus) {
+                cuisineDao.updateCuisineStatus(deleteStatus);
+            } else {
+                cuisineDao.save(cuisine);
+            }
             JdbcUtil.commit();
             return ResultVO.ok(MessageConstant.INSERT_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
+            JdbcUtil.rollback();
             return ResultVO.error(MessageConstant.INSERT_FAIL);
         }
+    }
+
+    /**
+     * 判断菜系名字是否存在
+     *
+     * @param cuisineName 菜系名字
+     * @return
+     */
+    @Override
+    public ResultVO existsCuisineName(String cuisineName) {
+        try {
+            Integer cuisineId = cuisineDao.existsCuisineName(cuisineName);
+            //如果有数据
+            if (null != cuisineId) {
+                return ResultVO.error(MessageConstant.EXITIS_NAME);
+            } else {
+                return ResultVO.ok(MessageConstant.UNEXITIS_NAME);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JdbcUtil.rollback();
+        }
+        return ResultVO.error(MessageConstant.EXITIS_NAME);
     }
 }

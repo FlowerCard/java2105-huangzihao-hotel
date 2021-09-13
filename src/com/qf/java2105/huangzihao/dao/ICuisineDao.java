@@ -48,5 +48,28 @@ public interface ICuisineDao {
      * @throws SQLException
      */
     public void save(Cuisine cuisine) throws SQLException;
+
+    /**
+     * 查看菜系名字是否存在
+     * @param cuisineName 菜系名称
+     * @return
+     */
+    public Integer existsCuisineName(String cuisineName) throws SQLException;
+
+    /**
+     * 更新菜系是否被删除
+     * 配合菜系名称是否存在使用
+     * 如果存在，但是被打上了删除状态，就把状态复原到可用
+     * @param cuisineId 菜系ID
+     */
+    public void updateCuisineStatus(Integer cuisineId) throws SQLException;
+
+    /**
+     * 查询被打上删除标记的菜系
+     * @param cuisineName 菜系名称
+     * @throws SQLException
+     * @return
+     */
+    public Integer queryDeleteStatus(String cuisineName) throws SQLException;
     
 }

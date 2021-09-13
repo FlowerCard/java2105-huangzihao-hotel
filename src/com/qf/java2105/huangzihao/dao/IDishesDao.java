@@ -49,5 +49,28 @@ public interface IDishesDao {
      * @throws SQLException
      */
     public void deleteById(Integer dishesId) throws SQLException;
+
+    /**
+     * 查看菜品名字是否存在
+     * @param dishesName 菜品名称
+     * @return
+     */
+    public Integer existsDishesName(String dishesName) throws SQLException;
+
+    /**
+     * 更新菜品是否被删除
+     * 配合菜品名称是否存在使用
+     * 如果存在，但是被打上了删除状态，就把状态复原到可用
+     * @param dishesId 菜品ID
+     */
+    public void updateDishesStatus(Integer dishesId) throws SQLException;
+
+    /**
+     * 查询被打上删除标记的菜品
+     * @param cuisineName 菜品名称
+     * @throws SQLException
+     * @return
+     */
+    public Integer queryDeleteStatus(String cuisineName) throws SQLException;
     
 }

@@ -50,7 +50,8 @@
                         </tr>
                         <tr>
                             <td width="80px">菜名</td>
-                            <td><input type="text" name="dishesName" class="InputStyle" value=""/> *</td>
+                            <td><input type="text" id="dishesName" name="dishesName" class="InputStyle" value=""/> *
+                                <span id="dishesMsg"></span></td>
                         </tr>
                         <tr>
                             <td>价格</td>
@@ -81,7 +82,7 @@
         <div id="InputDetailBar">
 
 
-            <input type="submit" value="添加" class="FunctionButtonInput">
+            <input type="submit" id="dishesAddBtn" value="添加" class="FunctionButtonInput">
 
 
             <a href="javascript:history.go(-1);" class="FunctionButton">返回</a>
@@ -89,4 +90,20 @@
     </form>
 </div>
 </body>
+<script type="text/javascript">
+    $(function (){
+        $("#dishesName").change(function (){
+            var dishesNameVal = $(this).val();
+            $.get('/dish?method=exitisName',{dishesName:dishesNameVal},function (result) {
+                if(result.success) {
+                    $("#dishesMsg").html("<span style='color: green;'>" + result.message + "</span>");
+                    $("#dishesAddBtn").attr("disabled", false);
+                } else {
+                    $("#dishesMsg").html("<span style='color: red;'>" + result.message + "</span>");
+                    $("#dishesAddBtn").attr("disabled", true);
+                }
+            },'json');
+        });
+    })
+</script>
 </html>

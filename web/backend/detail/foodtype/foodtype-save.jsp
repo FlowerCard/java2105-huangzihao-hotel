@@ -45,7 +45,8 @@
 						<tr>
 							<td width="80px">菜系名称</td>
 							<td>
-								<input type="text" name="name" class="InputStyle" value=""/> *
+								<input type="text" id="cuisineName" name="name" class="InputStyle" value=""/> *
+								<span id="cuisineMsg"></span>
 								<input type="hidden" name="cid" value="" />
 							</td>
 						</tr>
@@ -59,7 +60,7 @@
 			
 				
 				
-					 <input type="submit" value="添加" class="FunctionButtonInput">
+					 <input type="submit" id="cuisineAddBtn" value="添加" class="FunctionButtonInput">
 				
 			
             <a href="javascript:history.go(-1);" class="FunctionButton">返回</a>
@@ -68,7 +69,22 @@
 	
 </div>
 
-
+<script type="text/javascript">
+	$(function (){
+		$("#cuisineName").change(function (){
+			var cuisineNameVal = $(this).val();
+			$.get('/cuisine?method=exitisName',{cuisineName:cuisineNameVal},function (result) {
+				if(result.success) {
+					$("#cuisineMsg").html("<span style='color: green;'>" + result.message + "</span>");
+					$("#cuisineAddBtn").attr("disabled", false);
+				} else {
+					$("#cuisineMsg").html("<span style='color: red;'>" + result.message + "</span>");
+					$("#cuisineAddBtn").attr("disabled", true);
+				}
+			},'json');
+		});
+	})
+</script>
 
 
 </body>

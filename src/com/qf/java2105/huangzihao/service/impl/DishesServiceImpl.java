@@ -87,7 +87,17 @@ public class DishesServiceImpl implements IDishesService {
 
         try {
             JdbcUtil.begin();
-            dishesDao.save(dishes);
+            Integer queryDeleteStatus = dishesDao.queryDeleteStatus(dishes.getDishesName());
+            if (null != queryDeleteStatus) {
+                //更新删除状态
+                dishesDao.updateDishesStatus(queryDeleteStatus);
+                //设置菜品ID
+                dishes.setDishesId(queryDeleteStatus);
+                //更新菜品
+                dishesDao.updateById(dishes);
+            } else {
+                dishesDao.save(dishes);
+            }
             JdbcUtil.commit();
             return ResultVO.ok(MessageConstant.INSERT_SUCCESS);
         } catch (Exception e) {
@@ -152,5 +162,26 @@ public class DishesServiceImpl implements IDishesService {
             e.printStackTrace();
             return ResultVO.error(MessageConstant.DELETE_FAIL);
         }
+    }
+
+    /**
+     * 判断菜品名字是否存在
+     *
+     * @param dishesName 菜品名字
+     * @return
+     */
+    @Override
+    public ResultVO existsDishesName(String dishesName) {
+        try {
+            Integer existsDishesName = dishesDao.existsDishesName(dishesName);
+            if (null != existsDishesName) {
+                return ResultVO.error(MessageConstant.EXITIS_NAME);
+            } else {
+                return ResultVO.ok(MessageConstant.UNEXITIS_NAME);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResultVO.error(MessageConstant.EXITIS_NAME);
     }
 }
