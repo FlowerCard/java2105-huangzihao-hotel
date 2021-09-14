@@ -1,5 +1,6 @@
 package com.qf.java2105.huangzihao.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +11,9 @@ import java.util.Date;
  * @email HuaPai@odcn.live
  * Created on 2021/9/11.
  */
-public class User {
+public class User implements Serializable {
+    
+    private static final long serialVersionUID = -19L;
 
     /**
      * 用户ID

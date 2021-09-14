@@ -39,4 +39,8 @@ public interface MessageConstant {
     
     String HAS_NO_DATA = "无数据";
     
+    String LOGIN_SUCCESS = "登录成功";
+    
+    String LOGIN_FAIL = "登录失败，用户名或密码错误";
+    
 }
