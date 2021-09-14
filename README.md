@@ -56,3 +56,32 @@ request.getRequestDispatcher(request.getContextPath() + "/backend/detail/foodtyp
 ```
 
 > ​	在Tomcat安装目录下的conf目录下server.xml文件中，找到<Host></Host>标签，在其中加上上面代码块中中间的代码
+
+## 2021-09-14
+
+```java
+public void setCurrentPage(Integer currentPage) {
+        if (0 >= currentPage) {
+            //判断传入的当前页是否合理
+            this.currentPage = 1;
+        } else {
+            if (currentPage <= this.totalPage) {
+                //判断传入的当前页是否超过最大页数
+//                this.currentPage = this.totalPage;
+                this.currentPage = currentPage;
+            } else {
+                this.currentPage = this.totalPage;
+                //大于总页数的时候，让当前页保持，不改变
+            }
+        }
+}
+```
+
+```java
+Integer start = (pageBean.getCurrentPage() - 1) * pageBean.getPageSize();
+if (start < 0) {
+   start = 0;
+}
+```
+
+> ​	需要在这里判断一下，否则计算的起始位置会变成负数
