@@ -7,6 +7,7 @@ import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.User;
 import com.qf.java2105.huangzihao.service.IUserService;
 import com.qf.java2105.huangzihao.utils.JdbcUtil;
+import com.qf.java2105.huangzihao.utils.MD5Utils;
 
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public class UserServiceImpl implements IUserService {
             User user = userDao.queryByUsername(username);
             if (null != user) {
                 //不为空则用户存在
-                if (password.equals(user.getPassword())) {
+                if (MD5Utils.md5(password).equals(user.getPassword())) {
                     //密码正确
                     return ResultVO.ok(MessageConstant.LOGIN_SUCCESS,user);
                 }

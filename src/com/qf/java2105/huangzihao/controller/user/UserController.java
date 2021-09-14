@@ -7,6 +7,7 @@ import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.User;
 import com.qf.java2105.huangzihao.service.IUserService;
+import com.qf.java2105.huangzihao.utils.MD5Utils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -87,6 +88,7 @@ public class UserController extends BaseController {
         User user = new User();
         user.setUsername(username);
         user.setNickname(nickname);
+        password = MD5Utils.md5(password);
         user.setPassword(password);
         ResultVO<String> register = userService.register(user);
         if (register.getSuccess()) {
