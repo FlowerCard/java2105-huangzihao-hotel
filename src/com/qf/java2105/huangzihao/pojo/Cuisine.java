@@ -1,5 +1,6 @@
 package com.qf.java2105.huangzihao.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,9 @@ import java.util.Date;
  * @email HuaPai@odcn.live
  * Created on 2021/9/11.
  */
-public class Cuisine {
+public class Cuisine implements Serializable {
+
+    private static final long serialVersionUID = -1L;
 
     /**
      * 菜系ID

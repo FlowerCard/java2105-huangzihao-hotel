@@ -46,7 +46,7 @@ public class PageBean<T> {
     }
 
     public Integer getCurrentPage() {
-        return currentPage;
+        return this.currentPage;
     }
 
     public void setCurrentPage(Integer currentPage) {
@@ -54,11 +54,12 @@ public class PageBean<T> {
             //判断传入的当前页是否合理
             this.currentPage = 1;
         } else {
-            if (currentPage > this.totalPage) {
+            if (currentPage <= this.totalPage) {
                 //判断传入的当前页是否超过最大页数
-                this.currentPage = this.totalPage;
-            } else {
+//                this.currentPage = this.totalPage;
                 this.currentPage = currentPage;
+            } else {
+                this.currentPage = this.totalPage;
             }
         }
     }

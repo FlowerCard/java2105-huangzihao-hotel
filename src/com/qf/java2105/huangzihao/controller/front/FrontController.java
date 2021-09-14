@@ -7,6 +7,7 @@ import com.qf.java2105.huangzihao.entity.PageBean;
 import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.Dishes;
+import com.qf.java2105.huangzihao.service.IDishesService;
 import com.qf.java2105.huangzihao.service.IFrontService;
 
 import javax.servlet.ServletException;
@@ -25,7 +26,16 @@ import java.io.IOException;
 public class FrontController extends BaseController {
     
     private IFrontService frontService = (IFrontService) BeanFacotry.getBean("frontService");
-    
+    private IDishesService dishesService = (IDishesService) BeanFacotry.getBean("dishesService");
+
+    /**
+     * 前台显示菜品
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
     public String search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer currentPage = 1;
         Integer cuisineId = 0;
@@ -49,6 +59,21 @@ public class FrontController extends BaseController {
         request.setAttribute("dishesName",dishesName.replaceAll("%",""));
         
         return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/caidan.jsp";
+    }
+
+    /**
+     * 前台显示菜品详情
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String dishesDetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dishesId = request.getParameter("dishesId");
+        ResultVO<Dishes> dishesResultVO = dishesService.queryById(Integer.valueOf(dishesId));
+        request.setAttribute("dishesDetail",dishesResultVO.getData());
+        return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/front/detail/caixiangxi.jsp";
     }
     
 }

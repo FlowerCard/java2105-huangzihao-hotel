@@ -49,6 +49,9 @@ public class FrontServiceImpl implements IFrontService {
                 第二页，页大小为6 。 ：(2-1)*6 = 6
              */
             Integer start = (pageBean.getCurrentPage() - 1) * pageBean.getPageSize();
+            if (start < 0) {
+                start = 0;
+            }
             //查询条数
             Integer end = pageBean.getPageSize();
             List<Dishes> dishesList = dishesDao.queryByPage(start, end, cuisineId, dishesName);

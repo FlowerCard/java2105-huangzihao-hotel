@@ -20,16 +20,16 @@
                     <li>
                         <dl>
                             <dt>
-                                <a href="caixiangxi.html">
+                                <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">
                                     <img width="214px" height="145px"
                                          src="${pageContext.request.contextPath}${pageList.dishesImg}"/>
                                 </a>
                             </dt>
                             <dd class="f1">
-                                <a href="caixiangxi.html">${pageList.dishesName}</a>
+                                <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">${pageList.dishesName}</a>
                             </dd>
                             <dd class="f2">
-                                <a href="caixiangxi.html">&yen;${pageList.dishesPrice}</a>
+                                <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">&yen;${pageList.dishesPrice}</a>
                             </dd>
                         </dl>
                     </li>
