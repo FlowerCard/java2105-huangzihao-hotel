@@ -43,4 +43,8 @@ public interface MessageConstant {
     
     String LOGIN_FAIL = "登录失败，用户名或密码错误";
     
+    String REG_SUCCESS = "注册成功";
+    
+    String REG_FAIL = "注册失败";
+    
 }

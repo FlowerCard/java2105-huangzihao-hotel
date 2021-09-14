@@ -5,6 +5,7 @@ import com.qf.java2105.huangzihao.pojo.User;
 import com.qf.java2105.huangzihao.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
 
@@ -44,5 +45,30 @@ public class UserDaoImpl implements IUserDao {
                 "from t_user \n" +
                 "where t_username = ? and t_status !=2;";
         return queryRunner.query(sql,new BeanHandler<>(User.class),username);
+    }
+
+    /**
+     * 新增用户
+     *
+     * @param user 用户对象
+     */
+    @Override
+    public void inster(User user) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "insert into t_user (t_username,t_password,t_nickname,t_create_time) values (?,?,?,?)";
+        queryRunner.update(sql,user.getUsername(),user.getPassword(),user.getNickname(),user.getUserCreateTime());
+    }
+
+    /**
+     * 用户名是否存在
+     *
+     * @param username 用户名
+     * @return
+     */
+    @Override
+    public Integer exitisName(String username) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        String sql = "select t_user_id from t_user where t_username = ?";
+        return queryRunner.query(sql,new ScalarHandler<>(),username);
     }
 }

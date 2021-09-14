@@ -18,5 +18,19 @@ public interface IUserService {
      * @return
      */
     public ResultVO<User> login(String username,String password);
+
+    /**
+     * 注册
+     * @param user 用户
+     * @return
+     */
+    public ResultVO<String> register(User user);
+
+    /**
+     * 用户名是否存在
+     * @param username 用户名
+     * @return
+     */
+    public ResultVO<String> exitisName(String username);
     
 }

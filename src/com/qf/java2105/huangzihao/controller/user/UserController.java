@@ -1,5 +1,6 @@
 package com.qf.java2105.huangzihao.controller.user;
 
+import com.alibaba.fastjson.JSON;
 import com.qf.java2105.huangzihao.constant.ResponseMessageConstant;
 import com.qf.java2105.huangzihao.controller.BaseController;
 import com.qf.java2105.huangzihao.entity.ResultVO;
@@ -23,7 +24,15 @@ import java.io.IOException;
 public class UserController extends BaseController {
     
     private IUserService userService = (IUserService) BeanFacotry.getBean("userService");
-    
+
+    /**
+     * 登录
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
     public String login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -54,6 +63,52 @@ public class UserController extends BaseController {
         } else {
             return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/front/login.jsp";
         }
+    }
+
+    /**
+     * 注册
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String register(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String nickname = request.getParameter("nickname");
+
+        if (null == nickname || "".equals(nickname.trim()) || null == username || "".equals(username.trim())
+                || null == password || "".equals(password.trim())) {
+            // 如果传过来是空值，则回到注册页
+            return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/front/register.jsp";
+        }
+        
+        User user = new User();
+        user.setUsername(username);
+        user.setNickname(nickname);
+        user.setPassword(password);
+        ResultVO<String> register = userService.register(user);
+        if (register.getSuccess()) {
+            return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/front/login.jsp";
+        } else {
+            return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/front/register.jsp";
+        }
+
+    }
+
+    /**
+     * 名字是否存在
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String exitisName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String usernameVal = request.getParameter("usernameVal");
+        ResultVO<String> resultVO = userService.exitisName(usernameVal);
+        return JSON.toJSONString(resultVO);
     }
     
 }

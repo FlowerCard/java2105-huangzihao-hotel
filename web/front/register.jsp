@@ -14,15 +14,15 @@
     <script src="${front_detail_path}/style/js/jquery.js"></script>
     <script>
         $(function () {
-            $("#inputEmail").change(function (){
-                var useraccountVal = $(this).val();
+            $("#username").change(function (){
+                var usernameVal = $(this).val();
                 //$.post(url,data,success(response,status,xhr),dataType);
-                $.post("../../user/exist",{"useraccountValue":useraccountVal},function (result){
+                $.post("/user?method=exitisName",{"usernameVal":usernameVal},function (result){
                     if (result.success) {
-                        $("#useraccountMsg1").html("<span style='color: green'>" + result.message + "</span>");
+                        $("#usernameMsg1").html("<span style='color: green'>" + result.message + "</span>");
                         $("#subBtn").attr("disabled",false);
                     } else {
-                        $("#useraccountMsg1").html("<span style='color: red'>" + result.message + "</span>");
+                        $("#usernameMsg1").html("<span style='color: red'>" + result.message + "</span>");
                         $("#subBtn").attr("disabled",true);
                     }
                 },"json");
@@ -35,18 +35,18 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <form class="form-horizontal" action="../../user/register" method="post">
+        <form class="form-horizontal" action="/user?method=register" method="post">
             <div class="form-group">
-                <label for="inputEmail" class="col-sm-2 control-label">账号</label>
+                <label for="username" class="col-sm-2 control-label">用户名</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control" name="useraccount" id="inputEmail" placeholder="请输入账号，邮箱格式">
-                    <span id="useraccountMsg1"></span>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+                    <span id="usernameMsg1"></span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputusername" class="col-sm-2 control-label">用户名</label>
+                <label for="nickname" class="col-sm-2 control-label">昵称</label>
                 <div class="col-sm-10">
-                    <input type="text" name="username" class="form-control" id="inputusername" placeholder="请输入用户名">
+                    <input type="text" name="nickname" class="form-control" id="nickname" placeholder="请输入昵称">
                 </div>
             </div>
             <div class="form-group">

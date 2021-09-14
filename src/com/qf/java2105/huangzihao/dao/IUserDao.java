@@ -18,5 +18,18 @@ public interface IUserDao {
      * @return
      */
     public User queryByUsername(String username) throws SQLException;
+
+    /**
+     * 新增用户
+     * @param user 用户对象
+     */
+    public void inster(User user) throws SQLException;
+
+    /**
+     * 用户名是否存在
+     * @param username 用户名
+     * @return
+     */
+    public Integer exitisName(String username) throws SQLException;
     
 }
