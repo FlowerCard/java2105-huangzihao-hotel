@@ -9,15 +9,17 @@ import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.factory.BeanFacotry;
 import com.qf.java2105.huangzihao.pojo.Cuisine;
 import com.qf.java2105.huangzihao.service.ICuisineService;
-import com.qf.java2105.huangzihao.service.impl.CuisineServiceImpl;
 
+import javax.net.ssl.SSLContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author HuaPai
@@ -29,6 +31,19 @@ import java.util.Date;
 public class CuisineController extends BaseController {
     
     private ICuisineService cuisineService = (ICuisineService) BeanFacotry.getBean("cuisineService");
+    
+    public String queryAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        //从session中获取菜系
+        List<Cuisine> cuisineList = (List<Cuisine>) session.getAttribute("cuisines");
+        if (cuisineList == null || cuisineList.size() == 0) {
+            //session中没有菜系列表 查询菜系列表
+            ResultVO resultVO = cuisineService.queryByName("");
+            session.setAttribute("cuisineList",resultVO.getData());
+            return JSON.toJSONString(resultVO);
+        }
+        return JSON.toJSONString(ResultVO.ok(MessageConstant.HAS_DATA));
+    }
 
     /**
      * 搜索

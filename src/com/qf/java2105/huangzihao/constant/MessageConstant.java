@@ -31,4 +31,12 @@ public interface MessageConstant {
     
     String UNEXITIS_NAME = "名字不存在，可用";
     
+    String PAGE_SUCESS = "分页成功";
+    
+    String PAGE_FAIL = "分页失败";
+    
+    String HAS_DATA = "有数据";
+    
+    String HAS_NO_DATA = "无数据";
+    
 }

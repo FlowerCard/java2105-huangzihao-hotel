@@ -5,10 +5,12 @@ import com.qf.java2105.huangzihao.pojo.Dishes;
 import com.qf.java2105.huangzihao.utils.JdbcUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -162,5 +164,65 @@ public class DishesDaoImpl implements IDishesDao {
         queryRunner = new QueryRunner(JdbcUtil.getDataSource());
         String sql = "select t_dishes_id from t_dishes where t_dishes_name = ? and t_dishes_status = 3";
         return queryRunner.query(sql,new ScalarHandler<>(),cuisineName);
+    }
+
+    /**
+     * 条件总数量
+     *
+     * @param cuisineId  菜系id
+     * @param dishesName 菜品名称
+     * @return
+     */
+    @Override
+    public Long countByCondition(Integer cuisineId, String dishesName) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        StringBuffer sql = new StringBuffer("select count(1) from t_dishes where 1=1 and t_dishes_status != 3 ");
+        List<Object> params = new ArrayList<>();
+        //追加模糊查询名字进行分页
+        sql.append(" and t_dishes_name like ? ");
+        params.add(dishesName);
+        if (0 != cuisineId) {
+            //菜系ID不为0 追加菜系ID分页查询
+            sql.append(" and t_cuisine_id = ? ");
+            params.add(cuisineId);
+        }
+        return queryRunner.query(sql.toString(),new ScalarHandler<>(),params.toArray());
+    }
+
+    /**
+     * 条件分页查询 
+     * @param begin 起始位置
+     * @param end 结束位置
+     * @param cuisineId 菜系ID
+     * @param dishesName 菜系名称
+     * @return
+     */
+    @Override
+    public List<Dishes> queryByPage(Integer begin, Integer end, Integer cuisineId, String dishesName) throws SQLException {
+        queryRunner = new QueryRunner(JdbcUtil.getDataSource());
+        List<Object> params = new ArrayList<>();
+        StringBuffer sql = new StringBuffer("select \n" +
+                "t_dishes_id dishesId, \n" +
+                "t_cuisine_id cuisineId, \n" +
+                "t_dishes_name dishesName, \n" +
+                "t_dishes_price dishesPrice, \n" +
+                "t_dishes_member_price dishesMemberPrice, \n" +
+                "t_dishes_img dishesImg, \n" +
+                "t_dishes_introduction dishesIntroduction, \n" +
+                "t_dishes_status dishesStatus \n" +
+                "from t_dishes where 1=1 and t_dishes_status != 3 ");
+        //名字模糊查询
+        sql.append(" and t_dishes_name like ? ");
+        params.add(dishesName);
+        if (0 != cuisineId) {
+            //菜系ID不为零 追加根据菜系ID查询
+            sql.append(" and t_cuisine_id = ? ");
+            params.add(cuisineId);
+        }
+        //分页查询
+        sql.append(" limit ?,? ");
+        params.add(begin);
+        params.add(end);
+        return queryRunner.query(sql.toString(),new BeanListHandler<>(Dishes.class), params.toArray());
     }
 }

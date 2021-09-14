@@ -72,5 +72,24 @@ public interface IDishesDao {
      * @return
      */
     public Integer queryDeleteStatus(String cuisineName) throws SQLException;
+
+    /**
+     * 条件总数量
+     * @param cuisineId 菜系id
+     * @param dishesName 菜品名称
+     * @return
+     */
+    Long countByCondition(Integer cuisineId, String dishesName) throws SQLException;
+
+    /**
+     * 条件分页查询 
+     * @param begin 起始位置
+     * @param end 结束位置
+     * @param cuisineId 菜系ID
+     * @param dishesName 菜系名称
+     * @return
+     * @throws SQLException
+     */
+    public List<Dishes> queryByPage(Integer begin, Integer end, Integer cuisineId, String dishesName) throws SQLException;
     
 }
