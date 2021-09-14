@@ -116,14 +116,14 @@ margin-left: 10px;
 		<!-- 欢迎用户的文字 -->
 		<div id="Head_1_UserWelcome">
 			<img border="0" width="13" height="14" src="style/images/user.gif" /> 
-			您好，<b>管理员</b>
+			您好，<b>${sessionScope.loginUser.nickname}</b>
 		</div>
 		<!-- 一些链接按钮 -->
 		<div id="Head_1_FunctionButton">
 			<a target="right" href="javascript:void(0)">
 				<img width="78" height="20" src="style/images/help2.gif" />
 			</a>
-			<a target="_parent" href="javascript:void(0)">
+			<a target="_parent" href="/user?method=login&destroy=1">
 				<img width="78" height="20" alt="退出系统" src="style/images/logout.gif" />
 			</a>
 		</div>

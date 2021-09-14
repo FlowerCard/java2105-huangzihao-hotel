@@ -29,7 +29,12 @@ public class UserController extends BaseController {
         String password = request.getParameter("password");
         String inputVcode = request.getParameter("inputVcode");
         String vCode = (String) request.getSession().getAttribute("vCode");
-        
+        String destroy = request.getParameter("destroy");
+
+        if (null != destroy && 1 == Integer.parseInt(destroy)) {
+            request.getSession().removeAttribute("loginUser");
+        }
+
         if (null == inputVcode || "".equals(inputVcode.trim()) || null == username || "".equals(username.trim())
                 || null == password || "".equals(password.trim())) {
             // 如果传过来是空值，则回到登录页

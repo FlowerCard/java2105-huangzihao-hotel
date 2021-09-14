@@ -13,8 +13,8 @@ import java.io.IOException;
  * @email HuaPai@odcn.live
  * Created on 2021/9/14.
  */
-@WebFilter("/*")
-public class LoginFilter implements Filter {
+@WebFilter("/backend/*")
+public class FrontFilter implements Filter {
     @Override
     public void destroy() {
     }
@@ -23,23 +23,18 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
+        User loginUser = (User) request.getSession().getAttribute("loginUser");
 
-        String requestURI = request.getRequestURI();
-        if (requestURI.contains(".html") || (requestURI.contains(".css") ||(requestURI.contains(".js")
-                || requestURI.contains("/user") || requestURI.contains("fonts")
-                || requestURI.endsWith("/validateCode") || requestURI.endsWith("/login.jsp") || requestURI.endsWith("/register.jsp")
-                || requestURI.endsWith("exist")))) {
-            chain.doFilter(request,response);
-            return;
-        }
-
-        Object loginUser = request.getSession().getAttribute("loginUser");
         if (null == loginUser) {
             response.sendRedirect(request.getContextPath() + "/front/login.jsp");
             return;
         }
         
-        chain.doFilter(request,response);
+        if (loginUser.getAdmin() == 1) {
+            chain.doFilter(req, resp);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/front/login.jsp");
+        }
     }
 
     @Override
