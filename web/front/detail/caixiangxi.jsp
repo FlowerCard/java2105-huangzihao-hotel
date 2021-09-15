@@ -49,7 +49,7 @@
 				<ul>
 				<li class="dish_num"></li>
 					<li>
-						<a href="clientOrderList.html">
+						<a href="javascript:void(0)">
 							<img src="${front_detail_path}/style/images/call2.gif" />
 						</a>
 					</li>
