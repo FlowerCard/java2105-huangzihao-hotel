@@ -85,3 +85,14 @@ if (start < 0) {
 ```
 
 > ​	需要在这里判断一下，否则计算的起始位置会变成负数
+
+## 2021-09-15
+
+```html
+<c:choose>
+	<c:when test="${sessionScope.loginUser.member == 1}">${dishesDetail.dishesPrice}</c:when>
+	<c:when test="${sessionScope.loginUser.member == 2}">${dishesDetail.dishesMemberPrice}</c:when>
+</c:choose>
+```
+
+* 判断值是不是相等时，使用的是 **==**，而不是 **=**，JSP中的 **=** 是赋值操作，只有 **==** 才是比较操作
