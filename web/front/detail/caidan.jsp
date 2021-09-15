@@ -29,7 +29,13 @@
                                 <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">${pageList.dishesName}</a>
                             </dd>
                             <dd class="f2">
-                                <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">&yen;${pageList.dishesPrice}</a>
+                                <a href="/front?method=dishesDetail&dishesId=${pageList.dishesId}">&yen;
+<%--                                        ${pageList.dishesPrice}--%>
+                                    <c:choose>  
+                                        <c:when test="${sessionScope.loginUser.member == 1}">${pageList.dishesPrice}</c:when>
+                                        <c:when test="${sessionScope.loginUser.member == 2}">${pageList.dishesMemberPrice}</c:when>
+                                    </c:choose>
+                                </a>
                             </dd>
                         </dl>
                     </li>

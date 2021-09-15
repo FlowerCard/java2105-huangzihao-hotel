@@ -27,7 +27,12 @@
 				</div>
 				<div class="menu3_right">
 					<p>菜名:${dishesDetail.dishesName}</p>
-					<p>价格:&nbsp;&nbsp;&yen;&nbsp;${dishesDetail.dishesPrice}</p>
+					<p>价格:&nbsp;&nbsp;&yen;&nbsp;
+						<c:choose>
+							<c:when test="${sessionScope.loginUser.member == 1}">${dishesDetail.dishesPrice}</c:when>
+							<c:when test="${sessionScope.loginUser.member == 2}">${dishesDetail.dishesMemberPrice}</c:when>
+						</c:choose>
+					</p>
 					<p>简介:${dishesDetail.dishesIntroduction}</p>
 				</div>
 			</div>
