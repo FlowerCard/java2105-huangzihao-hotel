@@ -100,9 +100,13 @@ body {
                 <li class="level2 level2Style">
                 	<a target="right" href="/dish?method=search">菜品管理</a>
 				</li>
+				<li class="level2 level2Style">
+					<a target="right" href="/user?method=search">用户列表</a>
+				</li>
                 <li class="level2 level2Style">
                 	<a target="right" href="order/order-list.html">餐厅订单</a>
 				</li>
+				
             </ul>
         </li>
     </ul>

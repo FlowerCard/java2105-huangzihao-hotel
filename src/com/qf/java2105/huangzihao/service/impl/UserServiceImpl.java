@@ -1,5 +1,6 @@
 package com.qf.java2105.huangzihao.service.impl;
 
+import com.alibaba.druid.util.StringUtils;
 import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.dao.IUserDao;
 import com.qf.java2105.huangzihao.entity.ResultVO;
@@ -10,6 +11,7 @@ import com.qf.java2105.huangzihao.utils.JdbcUtil;
 import com.qf.java2105.huangzihao.utils.MD5Utils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author HuaPai
@@ -45,6 +47,86 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
+     * 搜索用户
+     *
+     * @param username 用户名
+     * @return
+     */
+    @Override
+    public ResultVO<List<User>> search(String username) {
+        try {
+            if (StringUtils.isEmpty(username)) {
+                username = "%%";
+            } else {
+                username = "%" + username + "%";
+            }
+            List<User> userList = userDao.searchUser(username);
+            return ResultVO.ok(MessageConstant.QUERY_SUCCESS,userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVO.error(MessageConstant.QUERY_FAIL);
+        }
+    }
+
+    /**
+     * 用户ID
+     *
+     * @param userId 用户ID
+     * @return
+     */
+    @Override
+    public ResultVO<User> updateui(Integer userId) {
+        try {
+            User user = userDao.queryById(userId);
+            return ResultVO.ok(MessageConstant.QUERY_SUCCESS,user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultVO.error(MessageConstant.QUERY_FAIL);
+        }
+    }
+
+    /**
+     * 更新用户
+     *
+     * @param user 用户对象
+     * @return
+     */
+    @Override
+    public ResultVO<String> update(User user) {
+        try {
+            JdbcUtil.begin();
+            user.setUserModifieTime(new Date());
+            userDao.update(user);
+            JdbcUtil.commit();
+            return ResultVO.ok(MessageConstant.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JdbcUtil.rollback();
+            return ResultVO.error(MessageConstant.UPDATE_FAIL);
+        }
+    }
+
+    /**
+     * 删除用户
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResultVO<String> deleteById(Integer userId) {
+        try {
+            JdbcUtil.begin();
+            userDao.deleteById(userId);
+            JdbcUtil.commit();
+            return ResultVO.ok(MessageConstant.DELETE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JdbcUtil.rollback();
+            return ResultVO.error(MessageConstant.DELETE_FAIL);
+        }
+    }
+
+    /**
      * 注册
      *
      * @param user 用户
@@ -54,8 +136,14 @@ public class UserServiceImpl implements IUserService {
     public ResultVO<String> register(User user) {
         try {
             JdbcUtil.begin();
+            Integer queryDeltet = userDao.queryDeltet(user.getUsername());
             user.setUserCreateTime(new Date());
-            userDao.inster(user);
+            if (queryDeltet == null) {
+                userDao.inster(user);
+            } else {
+                user.setUserId(Long.valueOf(queryDeltet));
+                userDao.updateDelete(user);
+            }
             JdbcUtil.commit();
             return ResultVO.ok(MessageConstant.REG_SUCCESS);
         } catch (Exception e) {

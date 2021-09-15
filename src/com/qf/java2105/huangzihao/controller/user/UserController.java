@@ -1,19 +1,25 @@
 package com.qf.java2105.huangzihao.controller.user;
 
 import com.alibaba.fastjson.JSON;
+import com.qf.java2105.huangzihao.constant.MessageConstant;
 import com.qf.java2105.huangzihao.constant.ResponseMessageConstant;
 import com.qf.java2105.huangzihao.controller.BaseController;
 import com.qf.java2105.huangzihao.entity.ResultVO;
 import com.qf.java2105.huangzihao.factory.BeanFacotry;
+import com.qf.java2105.huangzihao.pojo.Dishes;
 import com.qf.java2105.huangzihao.pojo.User;
 import com.qf.java2105.huangzihao.service.IUserService;
 import com.qf.java2105.huangzihao.utils.MD5Utils;
+import com.qf.java2105.huangzihao.utils.UploadUtil;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理层模块
@@ -97,6 +103,86 @@ public class UserController extends BaseController {
             return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/front/register.jsp";
         }
 
+    }
+
+    /**
+     * 查询用户
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String username = request.getParameter("keyword");
+        ResultVO<List<User>> resultVO = userService.search(username);
+
+        request.setAttribute("keyword",username == null ? "" : username.trim());
+        request.setAttribute("userList",resultVO.getData());
+        return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/backend/detail/user/user-list.jsp";
+    }
+
+    /**
+     * 用户更新界面
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String updateui(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResultVO resultVO = ResultVO.error(MessageConstant.QUERY_FAIL);
+        try {
+            String userId = request.getParameter("userId");
+            ResultVO<User> updateui = userService.updateui(Integer.valueOf(userId));
+            request.setAttribute("userInfo",updateui.getData());
+            return ResponseMessageConstant.PREFIX_FORWARD + request.getContextPath() + "/backend/detail/user/user-update.jsp";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
+    }
+
+    /**
+     * 更新用户
+     * @param request
+     * @param response
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
+    public String update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResultVO resultVO = ResultVO.error(MessageConstant.UPDATE_FAIL);
+        try {
+            //获取前台传过来的所有参数
+            Map<String, String[]> parameterMap = request.getParameterMap();
+            User user = new User();
+            BeanUtils.populate(user,parameterMap);
+            resultVO = userService.update(user);
+            if (resultVO.getSuccess()) {
+                return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/user?method=search";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //失败
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
+    }
+    
+    public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        ResultVO resultVO = ResultVO.error(MessageConstant.DELETE_FAIL);
+        try {
+            String userId = request.getParameter("userId");
+            resultVO = userService.deleteById(Integer.valueOf(userId));
+            if (resultVO.getSuccess()) {
+                return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/user?method=search";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //失败
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
     }
 
     /**
