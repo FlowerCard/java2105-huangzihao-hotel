@@ -161,7 +161,7 @@ public class CuisineController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "<script>alert(" + resultVO.getMessage() + ");</script>";
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
     }
 
 }

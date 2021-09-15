@@ -104,6 +104,10 @@
                 }
             },'json');
         });
+        $("from").submit(function (){
+            $("#dishesAddBtn").val("提交中...")
+            $("#dishesAddBtn").attr("disabled",true);
+        })
     })
 </script>
 </html>

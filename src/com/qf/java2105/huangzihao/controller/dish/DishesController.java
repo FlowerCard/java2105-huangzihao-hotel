@@ -112,7 +112,7 @@ public class DishesController extends BaseController {
             e.printStackTrace();
         }
         //失败
-        return "<script>alert(" + resultVO.getMessage() + ");</script>";
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
     }
 
     /**
@@ -167,7 +167,7 @@ public class DishesController extends BaseController {
             e.printStackTrace();
         }
         //失败
-        return "<script>alert(" + resultVO.getMessage() + ");</script>";
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
     }
     
     public String delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -183,7 +183,7 @@ public class DishesController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "<script>alert(" + resultVO.getMessage() + ");</script>";
+        return "<script>alert('" + resultVO.getMessage() + "');</script>";
     }
     
 }
