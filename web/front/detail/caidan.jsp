@@ -48,10 +48,20 @@
 						<span
                                 style="float:left; line-height:53PX; margin-left:-50px; font-weight:bold; ">
 							<span style="font-weight:bold">
-                                <a
-                                        <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
-                                        href="/front?method=search&currentPage=${pageBean.currentPage-1}&cuisineId=${cuisineId}" 
-                                        style=" text-decoration:none;color:#000000; font-weight:bold">&lt;&lt;</a>
+                                <c:choose>
+                                    <c:when test="${pageBean.currentPage - 1 == 0}">
+                                         <a
+                                                 <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
+                                                 href="#"
+                                                 style=" text-decoration:none;color:#000000; font-weight:bold">&lt;&lt;</a>
+                                    </c:when>
+                                    <c:when test="${pageBean.currentPage - 1 != 0}">
+                                        <a
+                                                <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
+                                                href="/front?method=search&currentPage=${pageBean.currentPage-1}&cuisineId=${cuisineId}"
+                                                style=" text-decoration:none;color:#000000; font-weight:bold">&lt;&lt;</a>
+                                    </c:when>
+                                </c:choose>
                             </span>
 						</span>
 
@@ -69,10 +79,20 @@
 
 
             <span style="float:right; line-height:53px; margin-right:10px;  ">
-							<a
-                                    <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
-                                    href="/front?method=search&currentPage=${pageBean.currentPage+1}&cuisineId=${cuisineId}"
-                                    style=" text-decoration:none;color:#000000; font-weight:bold">&gt;&gt;</a>
+                            <c:choose>
+                                <c:when test="${pageBean.currentPage+1 > pageBean.totalPage}">
+                                    <a
+                                            <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
+                                            href="#"
+                                            style=" text-decoration:none;color:#000000; font-weight:bold">&gt;&gt;</a>
+                                </c:when>
+                                <c:when test="${pageBean.currentPage+1 <= pageBean.totalPage}">
+                                    <a
+                                            <c:if test="${page == pageBean.currentPage}">style="color: black" </c:if>
+                                            href="/front?method=search&currentPage=${pageBean.currentPage+1}&cuisineId=${cuisineId}"
+                                            style=" text-decoration:none;color:#000000; font-weight:bold">&gt;&gt;</a>
+                                </c:when>
+                            </c:choose>
 						</span>
 
 
