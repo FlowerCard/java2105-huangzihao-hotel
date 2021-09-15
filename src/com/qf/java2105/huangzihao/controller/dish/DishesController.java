@@ -160,7 +160,7 @@ public class DishesController extends BaseController {
             }
             resultVO = dishesService.updateById(dishes);
             if (resultVO.getSuccess()) {
-                return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/dish/search";
+                return ResponseMessageConstant.PREFIX_REDIRECT + request.getContextPath() + "/dish?method=search";
             }
 
         } catch (Exception e) {
